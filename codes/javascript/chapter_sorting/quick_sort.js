@@ -15,7 +15,7 @@ class QuickSort {
 
     /* 哨兵划分 */
     partition(nums, left, right) {
-        // 以 nums[left] 作为基准数
+        // 以 nums[left] 为基准数
         let i = left,
             j = right;
         while (i < j) {
@@ -53,14 +53,16 @@ class QuickSortMedian {
         nums[j] = tmp;
     }
 
-    /* 选取三个元素的中位数 */
+    /* 选取三个候选元素的中位数 */
     medianThree(nums, left, mid, right) {
-        // 此处使用异或运算来简化代码
-        // 异或规则为 0 ^ 0 = 1 ^ 1 = 0, 0 ^ 1 = 1 ^ 0 = 1
-        if ((nums[left] < nums[mid]) ^ (nums[left] < nums[right])) return left;
-        else if ((nums[mid] < nums[left]) ^ (nums[mid] < nums[right]))
-            return mid;
-        else return right;
+        let l = nums[left],
+            m = nums[mid],
+            r = nums[right];
+        // m 在 l 和 r 之间
+        if ((l <= m && m <= r) || (r <= m && m <= l)) return mid;
+        // l 在 m 和 r 之间
+        if ((m <= l && l <= r) || (r <= l && l <= m)) return left;
+        return right;
     }
 
     /* 哨兵划分（三数取中值） */
@@ -74,7 +76,7 @@ class QuickSortMedian {
         );
         // 将中位数交换至数组最左端
         this.swap(nums, left, med);
-        // 以 nums[left] 作为基准数
+        // 以 nums[left] 为基准数
         let i = left,
             j = right;
         while (i < j) {
@@ -109,7 +111,7 @@ class QuickSortTailCall {
 
     /* 哨兵划分 */
     partition(nums, left, right) {
-        // 以 nums[left] 作为基准数
+        // 以 nums[left] 为基准数
         let i = left,
             j = right;
         while (i < j) {
@@ -127,7 +129,7 @@ class QuickSortTailCall {
         while (left < right) {
             // 哨兵划分操作
             let pivot = this.partition(nums, left, right);
-            // 对两个子数组中较短的那个执行快排
+            // 对两个子数组中较短的那个执行快速排序
             if (pivot - left < right - pivot) {
                 this.quickSort(nums, left, pivot - 1); // 递归排序左子数组
                 left = pivot + 1; // 剩余未排序区间为 [pivot + 1, right]

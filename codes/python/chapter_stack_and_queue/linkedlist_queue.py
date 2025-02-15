@@ -26,11 +26,11 @@ class LinkedListQueue:
 
     def is_empty(self) -> bool:
         """判断队列是否为空"""
-        return not self._front
+        return self._size == 0
 
     def push(self, num: int):
         """入队"""
-        # 尾节点后添加 num
+        # 在尾节点后添加 num
         node = ListNode(num)
         # 如果队列为空，则令头、尾节点都指向该节点
         if self._front is None:

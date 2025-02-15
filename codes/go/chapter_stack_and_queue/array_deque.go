@@ -49,7 +49,7 @@ func (q *arrayDeque) pushFirst(num int) {
 		return
 	}
 	// 队首指针向左移动一位
-	// 通过取余操作，实现 front 越过数组头部后回到尾部
+	// 通过取余操作实现 front 越过数组头部后回到尾部
 	q.front = q.index(q.front - 1)
 	// 将 num 添加至队首
 	q.nums[q.front] = num
@@ -62,9 +62,9 @@ func (q *arrayDeque) pushLast(num int) {
 		fmt.Println("双向队列已满")
 		return
 	}
-	// 计算尾指针，指向队尾索引 + 1
+	// 计算队尾指针，指向队尾索引 + 1
 	rear := q.index(q.front + q.queSize)
-	// 将 num 添加至队首
+	// 将 num 添加至队尾
 	q.nums[rear] = num
 	q.queSize++
 }
@@ -72,6 +72,9 @@ func (q *arrayDeque) pushLast(num int) {
 /* 队首出队 */
 func (q *arrayDeque) popFirst() any {
 	num := q.peekFirst()
+	if num == nil {
+		return nil
+	}
 	// 队首指针向后移动一位
 	q.front = q.index(q.front + 1)
 	q.queSize--
@@ -81,6 +84,9 @@ func (q *arrayDeque) popFirst() any {
 /* 队尾出队 */
 func (q *arrayDeque) popLast() any {
 	num := q.peekLast()
+	if num == nil {
+		return nil
+	}
 	q.queSize--
 	return num
 }

@@ -22,7 +22,6 @@ func remove(n0: ListNode) {
     let P = n0.next
     let n1 = P?.next
     n0.next = n1
-    P?.next = nil
 }
 
 /* 访问链表中索引为 index 的节点 */
@@ -62,7 +61,7 @@ enum LinkedList {
         let n2 = ListNode(x: 2)
         let n3 = ListNode(x: 5)
         let n4 = ListNode(x: 4)
-        // 构建引用指向
+        // 构建节点之间的引用
         n0.next = n1
         n1.next = n2
         n2.next = n3

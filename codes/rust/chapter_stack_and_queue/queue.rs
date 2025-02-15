@@ -1,10 +1,10 @@
 /*
  * File: queue.rs
  * Created Time: 2023-02-05
- * Author: sjinzh (sjinzh@gmail.com), xBLACKICEx (xBLACKICEx@outlook.com)
+ * Author: codingonion (coderonion@gmail.com), xBLACKICEx (xBLACKICEx@outlook.com)
  */
 
-include!("../include/include.rs");
+use hello_algo_rust::include::print_util;
 
 use std::collections::VecDeque;
 

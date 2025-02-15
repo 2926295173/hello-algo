@@ -61,7 +61,7 @@ int minPathSumDP(List<List<int>> grid) {
   for (int i = 1; i < n; i++) {
     dp[i][0] = dp[i - 1][0] + grid[i][0];
   }
-  // 状态转移：其余行列
+  // 状态转移：其余行和列
   for (int i = 1; i < n; i++) {
     for (int j = 1; j < m; j++) {
       dp[i][j] = min(dp[i][j - 1], dp[i - 1][j]) + grid[i][j];
@@ -103,18 +103,18 @@ void main() {
 
 // 暴力搜索
   int res = minPathSumDFS(grid, n - 1, m - 1);
-  print("从左上角到右下角的做小路径和为 $res");
+  print("从左上角到右下角的最小路径和为 $res");
 
 // 记忆化搜索
   List<List<int>> mem = List.generate(n, (i) => List.filled(m, -1));
   res = minPathSumDFSMem(grid, mem, n - 1, m - 1);
-  print("从左上角到右下角的做小路径和为 $res");
+  print("从左上角到右下角的最小路径和为 $res");
 
 // 动态规划
   res = minPathSumDP(grid);
-  print("从左上角到右下角的做小路径和为 $res");
+  print("从左上角到右下角的最小路径和为 $res");
 
 // 空间优化后的动态规划
   res = minPathSumDPComp(grid);
-  print("从左上角到右下角的做小路径和为 $res");
+  print("从左上角到右下角的最小路径和为 $res");
 }

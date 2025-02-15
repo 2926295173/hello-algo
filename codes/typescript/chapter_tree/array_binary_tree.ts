@@ -4,8 +4,8 @@
  * Author: yuan0221 (yl1452491917@gmail.com)
  */
 
-const { arrToTree } = require('../modules/TreeNode');
-const { printTree } = require('../modules/PrintUtil');
+import { arrToTree } from '../modules/TreeNode';
+import { printTree } from '../modules/PrintUtil';
 
 type Order = 'pre' | 'in' | 'post';
 
@@ -18,7 +18,7 @@ class ArrayBinaryTree {
         this.#tree = arr;
     }
 
-    /* 节点数量 */
+    /* 列表容量 */
     size(): number {
         return this.#tree.length;
     }
@@ -42,7 +42,7 @@ class ArrayBinaryTree {
 
     /* 获取索引为 i 节点的父节点的索引 */
     parent(i: number): number {
-        return Math.floor((i - 1) / 2); // 向下取整
+        return Math.floor((i - 1) / 2); // 向下整除
     }
 
     /* 层序遍历 */
@@ -148,4 +148,4 @@ console.log('中序遍历为：' + res);
 res = abt.postOrder();
 console.log('后序遍历为：' + res);
 
-export { };
+export {};

@@ -6,7 +6,7 @@
 
 #include "../utils/common.h"
 
-/* 二叉搜索树你结构体 */
+/* 二叉搜索树结构体 */
 typedef struct {
     TreeNode *root;
 } BinarySearchTree;
@@ -117,6 +117,8 @@ void removeItem(BinarySearchTree *bst, int num) {
         } else {
             pre->right = child;
         }
+        // 释放内存
+        free(cur);
     } else {
         /* 子节点数量 = 2 */
         // 获取中序遍历中 cur 的下一个节点

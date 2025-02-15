@@ -6,18 +6,13 @@
 
 namespace hello_algo.utils;
 
-public class Trunk {
-    public Trunk? prev;
-    public string str;
-
-    public Trunk(Trunk? prev, string str) {
-        this.prev = prev;
-        this.str = str;
-    }
+public class Trunk(Trunk? prev, string str) {
+    public Trunk? prev = prev;
+    public string str = str;
 };
 
 public static class PrintUtil {
-    /* Print a list */
+    /* 打印列表 */
     public static void PrintList<T>(IList<T> list) {
         Console.WriteLine("[" + string.Join(", ", list) + "]");
     }
@@ -26,7 +21,7 @@ public static class PrintUtil {
         return $"[ {string.Join(", ", list.Select(x => x?.ToString() ?? "null"))} ]";
     }
 
-    /* Print a matrix (Array) */
+    /* 打印矩阵 (Array) */
     public static void PrintMatrix<T>(T[][] matrix) {
         Console.WriteLine("[");
         foreach (T[] row in matrix) {
@@ -35,7 +30,7 @@ public static class PrintUtil {
         Console.WriteLine("]");
     }
 
-    /* Print a matrix (List) */
+    /* 打印矩阵 (List) */
     public static void PrintMatrix<T>(List<List<T>> matrix) {
         Console.WriteLine("[");
         foreach (List<T> row in matrix) {
@@ -44,9 +39,9 @@ public static class PrintUtil {
         Console.WriteLine("]");
     }
 
-    /* Print a linked list */
-    public static void PrintLinkedList(ListNode head) {
-        List<string> list = new();
+    /* 打印链表 */
+    public static void PrintLinkedList(ListNode? head) {
+        List<string> list = [];
         while (head != null) {
             list.Add(head.val.ToString());
             head = head.next;
@@ -55,7 +50,7 @@ public static class PrintUtil {
     }
 
     /**
-     * The interface of the tree printer
+     * 打印二叉树
      * This tree printer is borrowed from TECHIE DELIGHT
      * https://www.techiedelight.com/c-program-print-binary-tree/
      */
@@ -63,7 +58,7 @@ public static class PrintUtil {
         PrintTree(root, null, false);
     }
 
-    /* Print a binary tree */
+    /* 打印二叉树 */
     public static void PrintTree(TreeNode? root, Trunk? prev, bool isRight) {
         if (root == null) {
             return;
@@ -95,7 +90,6 @@ public static class PrintUtil {
         PrintTree(root.left, trunk, false);
     }
 
-    /* Helper function to print branches of the binary tree */
     public static void ShowTrunks(Trunk? p) {
         if (p == null) {
             return;
@@ -105,34 +99,34 @@ public static class PrintUtil {
         Console.Write(p.str);
     }
 
-    /* Print a hash map */
+    /* 打印哈希表 */
     public static void PrintHashMap<K, V>(Dictionary<K, V> map) where K : notnull {
         foreach (var kv in map.Keys) {
             Console.WriteLine(kv.ToString() + " -> " + map[kv]?.ToString());
         }
     }
 
-    /* Print a heap */
+    /* 打印堆 */
     public static void PrintHeap(Queue<int> queue) {
         Console.Write("堆的数组表示：");
-        List<int> list = queue.ToList();
+        List<int> list = [.. queue];
         Console.WriteLine(string.Join(',', list));
         Console.WriteLine("堆的树状表示：");
-        TreeNode tree = TreeNode.ListToTree(list.Cast<int?>().ToList());
+        TreeNode? tree = TreeNode.ListToTree(list.Cast<int?>().ToList());
         PrintTree(tree);
     }
 
-    /* Print a PriorityQueue */
+    /* 打印优先队列 */
     public static void PrintHeap(PriorityQueue<int, int> queue) {
         var newQueue = new PriorityQueue<int, int>(queue.UnorderedItems, queue.Comparer);
         Console.Write("堆的数组表示：");
-        List<int> list = new();
+        List<int> list = [];
         while (newQueue.TryDequeue(out int element, out _)) {
             list.Add(element);
         }
         Console.WriteLine("堆的树状表示：");
         Console.WriteLine(string.Join(',', list.ToList()));
-        TreeNode tree = TreeNode.ListToTree(list.Cast<int?>().ToList());
+        TreeNode? tree = TreeNode.ListToTree(list.Cast<int?>().ToList());
         PrintTree(tree);
     }
 }

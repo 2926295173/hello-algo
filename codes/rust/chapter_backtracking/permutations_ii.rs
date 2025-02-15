@@ -1,7 +1,7 @@
 /*
  * File: permutations_ii.rs
  * Created Time: 2023-07-15
- * Author: sjinzh (sjinzh@gmail.com)
+ * Author: codingonion (coderonion@gmail.com)
  */
 
 use std::collections::HashSet;
@@ -27,7 +27,7 @@ fn backtrack(mut state: Vec<i32>, choices: &[i32], selected: &mut [bool], res: &
             backtrack(state.clone(), choices, selected, res);
             // 回退：撤销选择，恢复到之前的状态
             selected[i] = false;
-            state.remove(state.len() - 1);
+            state.pop();
         }
     }
 }
@@ -41,7 +41,7 @@ fn permutations_ii(nums: &mut [i32]) -> Vec<Vec<i32>> {
 
 /* Driver Code */
 pub fn main() {
-    let mut nums = [ 1, 2, 2 ];
+    let mut nums = [1, 2, 2];
 
     let res = permutations_ii(&mut nums);
 

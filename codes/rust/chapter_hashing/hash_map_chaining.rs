@@ -56,14 +56,14 @@ impl HashMapChaining {
             }
         }
 
-        // 若未找到 key 则返回 None
+        // 若未找到 key ，则返回 None
         None
     }
 
     /* 扩容哈希表 */
     fn extend(&mut self) {
         // 暂存原哈希表
-        let buckets_tmp = std::mem::replace(&mut self.buckets, vec![]);
+        let buckets_tmp = std::mem::take(&mut self.buckets);
 
         // 初始化扩容后的新哈希表
         self.capacity *= self.extend_ratio;
@@ -102,17 +102,14 @@ impl HashMapChaining {
         // 遍历桶，若遇到指定 key ，则更新对应 val 并返回
         for pair in bucket {
             if pair.key == key {
-                pair.val = val.clone();
+                pair.val = val;
                 return;
             }
         }
         let bucket = &mut self.buckets[index];
 
         // 若无该 key ，则将键值对添加至尾部
-        let pair = Pair {
-            key,
-            val: val.clone(),
-        };
+        let pair = Pair { key, val };
         bucket.push(pair);
         self.size += 1;
     }
@@ -122,14 +119,14 @@ impl HashMapChaining {
         let index = self.hash_func(key);
         let bucket = &self.buckets[index];
 
-        // 遍历桶，若找到 key 则返回对应 val
+        // 遍历桶，若找到 key ，则返回对应 val
         for pair in bucket {
             if pair.key == key {
                 return Some(&pair.val);
             }
         }
 
-        // 若未找到 key 则返回 None
+        // 若未找到 key ，则返回 None
         None
     }
 }
@@ -150,11 +147,14 @@ pub fn main() {
     map.print();
 
     /* 查询操作 */
-    // 向哈希表输入键 key ，得到值 value
-    println!("\n输入学号 13276,查询到姓名 {}", match map.get(13276) {
-        Some(value) => value,
-        None => "Not a valid Key"
-    });
+    // 向哈希表中输入键 key ，得到值 value
+    println!(
+        "\n输入学号 13276,查询到姓名 {}",
+        match map.get(13276) {
+            Some(value) => value,
+            None => "Not a valid Key",
+        }
+    );
 
     /* 删除操作 */
     // 在哈希表中删除键值对 (key, value)

@@ -74,7 +74,7 @@ function editDistanceDP(s: string, t: string): number {
     for (let j = 1; j <= m; j++) {
         dp[0][j] = j;
     }
-    // 状态转移：其余行列
+    // 状态转移：其余行和列
     for (let i = 1; i <= n; i++) {
         for (let j = 1; j <= m; j++) {
             if (s.charAt(i - 1) === t.charAt(j - 1)) {
@@ -90,7 +90,7 @@ function editDistanceDP(s: string, t: string): number {
     return dp[n][m];
 }
 
-/* 编辑距离：状态压缩后的动态规划 */
+/* 编辑距离：空间优化后的动态规划 */
 function editDistanceDPComp(s: string, t: string): number {
     const n = s.length,
         m = t.length;
@@ -141,7 +141,7 @@ console.log(`将 ${s} 更改为 ${t} 最少需要编辑 ${res} 步`);
 res = editDistanceDP(s, t);
 console.log(`将 ${s} 更改为 ${t} 最少需要编辑 ${res} 步`);
 
-// 状态压缩后的动态规划
+// 空间优化后的动态规划
 res = editDistanceDPComp(s, t);
 console.log(`将 ${s} 更改为 ${t} 最少需要编辑 ${res} 步`);
 

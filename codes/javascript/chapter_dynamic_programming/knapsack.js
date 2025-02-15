@@ -6,11 +6,11 @@
 
 /* 0-1 背包：暴力搜索 */
 function knapsackDFS(wgt, val, i, c) {
-    // 若已选完所有物品或背包无容量，则返回价值 0
+    // 若已选完所有物品或背包无剩余容量，则返回价值 0
     if (i === 0 || c === 0) {
         return 0;
     }
-    // 若超过背包容量，则只能不放入背包
+    // 若超过背包容量，则只能选择不放入背包
     if (wgt[i - 1] > c) {
         return knapsackDFS(wgt, val, i - 1, c);
     }
@@ -23,7 +23,7 @@ function knapsackDFS(wgt, val, i, c) {
 
 /* 0-1 背包：记忆化搜索 */
 function knapsackDFSMem(wgt, val, mem, i, c) {
-    // 若已选完所有物品或背包无容量，则返回价值 0
+    // 若已选完所有物品或背包无剩余容量，则返回价值 0
     if (i === 0 || c === 0) {
         return 0;
     }
@@ -31,7 +31,7 @@ function knapsackDFSMem(wgt, val, mem, i, c) {
     if (mem[i][c] !== -1) {
         return mem[i][c];
     }
-    // 若超过背包容量，则只能不放入背包
+    // 若超过背包容量，则只能选择不放入背包
     if (wgt[i - 1] > c) {
         return knapsackDFSMem(wgt, val, mem, i - 1, c);
     }
@@ -69,7 +69,7 @@ function knapsackDP(wgt, val, cap) {
     return dp[n][cap];
 }
 
-/* 0-1 背包：状态压缩后的动态规划 */
+/* 0-1 背包：空间优化后的动态规划 */
 function knapsackDPComp(wgt, val, cap) {
     const n = wgt.length;
     // 初始化 dp 表
@@ -108,6 +108,6 @@ console.log(`不超过背包容量的最大物品价值为 ${res}`);
 res = knapsackDP(wgt, val, cap);
 console.log(`不超过背包容量的最大物品价值为 ${res}`);
 
-// 状态压缩后的动态规划
+// 空间优化后的动态规划
 res = knapsackDPComp(wgt, val, cap);
 console.log(`不超过背包容量的最大物品价值为 ${res}`);

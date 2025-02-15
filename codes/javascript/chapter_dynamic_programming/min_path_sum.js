@@ -60,7 +60,7 @@ function minPathSumDP(grid) {
     for (let i = 1; i < n; i++) {
         dp[i][0] = dp[i - 1][0] + grid[i][0];
     }
-    // 状态转移：其余行列
+    // 状态转移：其余行和列
     for (let i = 1; i < n; i++) {
         for (let j = 1; j < m; j++) {
             dp[i][j] = Math.min(dp[i][j - 1], dp[i - 1][j]) + grid[i][j];
@@ -69,7 +69,7 @@ function minPathSumDP(grid) {
     return dp[n - 1][m - 1];
 }
 
-/* 最小路径和：状态压缩后的动态规划 */
+/* 最小路径和：空间优化后的动态规划 */
 function minPathSumDPComp(grid) {
     const n = grid.length,
         m = grid[0].length;
@@ -116,6 +116,6 @@ console.log(`从左上角到右下角的最小路径和为 ${res}`);
 res = minPathSumDP(grid);
 console.log(`从左上角到右下角的最小路径和为 ${res}`);
 
-// 状态压缩后的动态规划
+// 空间优化后的动态规划
 res = minPathSumDPComp(grid);
 console.log(`从左上角到右下角的最小路径和为 ${res}`);

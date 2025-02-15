@@ -1,7 +1,7 @@
 /**
  * File: array_binary_tree.java
  * Created Time: 2023-07-19
- * Author: Krahets (krahets@163.com)
+ * Author: krahets (krahets@163.com)
  */
 
 package chapter_tree;
@@ -18,7 +18,7 @@ class ArrayBinaryTree {
         tree = new ArrayList<>(arr);
     }
 
-    /* 节点数量 */
+    /* 列表容量 */
     public int size() {
         return tree.size();
     }

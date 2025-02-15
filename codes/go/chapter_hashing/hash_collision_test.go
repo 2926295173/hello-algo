@@ -24,9 +24,9 @@ func TestHashMapChaining(t *testing.T) {
 	hmap.print()
 
 	/* 查询操作 */
-	// 向哈希表输入键 key ，得到值 value
+	// 向哈希表中输入键 key ，得到值 value
 	name := hmap.get(15937)
-	fmt.Println("\n输入学号 15937 ，查询到姓名 ", name)
+	fmt.Println("\n输入学号 15937 ，查询到姓名", name)
 
 	/* 删除操作 */
 	// 在哈希表中删除键值对 (key, value)
@@ -50,7 +50,7 @@ func TestHashMapOpenAddressing(t *testing.T) {
 	hmap.print()
 
 	/* 查询操作 */
-	// 向哈希表输入键 key ，得到值 value
+	// 向哈希表中输入键 key ，得到值 value
 	name := hmap.get(13276)
 	fmt.Println("\n输入学号 13276 ，查询到姓名 ", name)
 

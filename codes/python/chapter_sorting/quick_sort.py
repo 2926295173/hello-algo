@@ -10,7 +10,7 @@ class QuickSort:
 
     def partition(self, nums: list[int], left: int, right: int) -> int:
         """哨兵划分"""
-        # 以 nums[left] 作为基准数
+        # 以 nums[left] 为基准数
         i, j = left, right
         while i < j:
             while i < j and nums[j] >= nums[left]:
@@ -39,22 +39,21 @@ class QuickSortMedian:
     """快速排序类（中位基准数优化）"""
 
     def median_three(self, nums: list[int], left: int, mid: int, right: int) -> int:
-        """选取三个元素的中位数"""
-        # 此处使用异或运算来简化代码
-        # 异或规则为 0 ^ 0 = 1 ^ 1 = 0, 0 ^ 1 = 1 ^ 0 = 1
-        if (nums[left] < nums[mid]) ^ (nums[left] < nums[right]):
-            return left
-        elif (nums[mid] < nums[left]) ^ (nums[mid] < nums[right]):
-            return mid
+        """选取三个候选元素的中位数"""
+        l, m, r = nums[left], nums[mid], nums[right]
+        if (l <= m <= r) or (r <= m <= l):
+            return mid  # m 在 l 和 r 之间
+        if (m <= l <= r) or (r <= l <= m):
+            return left  # l 在 m 和 r 之间
         return right
 
     def partition(self, nums: list[int], left: int, right: int) -> int:
         """哨兵划分（三数取中值）"""
-        # 以 nums[left] 作为基准数
+        # 以 nums[left] 为基准数
         med = self.median_three(nums, left, (left + right) // 2, right)
         # 将中位数交换至数组最左端
         nums[left], nums[med] = nums[med], nums[left]
-        # 以 nums[left] 作为基准数
+        # 以 nums[left] 为基准数
         i, j = left, right
         while i < j:
             while i < j and nums[j] >= nums[left]:
@@ -84,7 +83,7 @@ class QuickSortTailCall:
 
     def partition(self, nums: list[int], left: int, right: int) -> int:
         """哨兵划分"""
-        # 以 nums[left] 作为基准数
+        # 以 nums[left] 为基准数
         i, j = left, right
         while i < j:
             while i < j and nums[j] >= nums[left]:
@@ -103,7 +102,7 @@ class QuickSortTailCall:
         while left < right:
             # 哨兵划分操作
             pivot = self.partition(nums, left, right)
-            # 对两个子数组中较短的那个执行快排
+            # 对两个子数组中较短的那个执行快速排序
             if pivot - left < right - pivot:
                 self.quick_sort(nums, left, pivot - 1)  # 递归排序左子数组
                 left = pivot + 1  # 剩余未排序区间为 [pivot + 1, right]

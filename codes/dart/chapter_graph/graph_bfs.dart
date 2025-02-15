@@ -9,12 +9,12 @@ import 'dart:collection';
 import '../utils/vertex.dart';
 import 'graph_adjacency_list.dart';
 
-/* 广度优先遍历 BFS */
+/* 广度优先遍历 */
 List<Vertex> graphBFS(GraphAdjList graph, Vertex startVet) {
   // 使用邻接表来表示图，以便获取指定顶点的所有邻接顶点
   // 顶点遍历序列
   List<Vertex> res = [];
-  // 哈希表，用于记录已被访问过的顶点
+  // 哈希集合，用于记录已被访问过的顶点
   Set<Vertex> visited = {};
   visited.add(startVet);
   // 队列用于实现 BFS
@@ -27,7 +27,7 @@ List<Vertex> graphBFS(GraphAdjList graph, Vertex startVet) {
     // 遍历该顶点的所有邻接顶点
     for (Vertex adjVet in graph.adjList[vet]!) {
       if (visited.contains(adjVet)) {
-        continue; // 跳过已被访问过的顶点
+        continue; // 跳过已被访问的顶点
       }
       que.add(adjVet); // 只入队未访问的顶点
       visited.add(adjVet); // 标记该顶点已被访问
@@ -59,7 +59,7 @@ void main() {
   print("\n初始化后，图为");
   graph.printAdjList();
 
-  /* 广度优先遍历 BFS */
+  /* 广度优先遍历 */
   List<Vertex> res = graphBFS(graph, v[0]);
   print("\n广度优先遍历（BFS）顶点序列为");
   print(Vertex.vetsToVals(res));

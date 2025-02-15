@@ -4,12 +4,11 @@
  * Author: night-cruise (2586447362@qq.com)
  */
 
-include!("../include/include.rs");
+use hello_algo_rust::include::{print_util, TreeNode};
 
-use tree_node::TreeNode;
-use std::rc::Rc;
-use std::cmp::Ordering;
 use std::cell::RefCell;
+use std::cmp::Ordering;
+use std::rc::Rc;
 
 type OptionTreeNodeRc = Option<Rc<RefCell<TreeNode>>>;
 
@@ -137,7 +136,7 @@ impl AVLTree {
     fn insert_helper(node: OptionTreeNodeRc, val: i32) -> OptionTreeNodeRc {
         match node {
             Some(mut node) => {
-                /* 1. 查找插入位置，并插入节点 */
+                /* 1. 查找插入位置并插入节点 */
                 match {
                     let node_val = node.borrow().val;
                     node_val
@@ -157,6 +156,7 @@ impl AVLTree {
                     }
                 }
                 Self::update_height(Some(node.clone())); // 更新节点高度
+
                 /* 2. 执行旋转操作，使该子树重新恢复平衡 */
                 node = Self::rotate(Some(node)).unwrap();
                 // 返回子树的根节点
@@ -175,7 +175,7 @@ impl AVLTree {
     fn remove_helper(node: OptionTreeNodeRc, val: i32) -> OptionTreeNodeRc {
         match node {
             Some(mut node) => {
-                /* 1. 查找节点，并删除之 */
+                /* 1. 查找节点并删除 */
                 if val < node.borrow().val {
                     let left = node.borrow().left.clone();
                     node.borrow_mut().left = Self::remove_helper(left, val);
@@ -211,6 +211,7 @@ impl AVLTree {
                     node.borrow_mut().val = temp.borrow().val;
                 }
                 Self::update_height(Some(node.clone())); // 更新节点高度
+
                 /* 2. 执行旋转操作，使该子树重新恢复平衡 */
                 node = Self::rotate(Some(node)).unwrap();
                 // 返回子树的根节点

@@ -4,16 +4,12 @@
 
 namespace hello_algo.utils;
 
-/* Definition for a singly-linked list node */
-public class ListNode {
-    public int val;
+/* 链表节点 */
+public class ListNode(int x) {
+    public int val = x;
     public ListNode? next;
 
-    public ListNode(int x) {
-        val = x;
-    }
-
-    /* Generate a linked list with an array */
+    /* 将数组反序列化为链表 */
     public static ListNode? ArrToLinkedList(int[] arr) {
         ListNode dum = new(0);
         ListNode head = dum;
@@ -24,16 +20,8 @@ public class ListNode {
         return dum.next;
     }
 
-    /* Get a list node with specific value from a linked list */
-    public static ListNode? GetListNode(ListNode? head, int val) {
-        while (head != null && head.val != val) {
-            head = head.next;
-        }
-        return head;
-    }
-
     public override string? ToString() {
-        List<string> list = new();
+        List<string> list = [];
         var head = this;
         while (head != null) {
             list.Add(head.val.ToString());

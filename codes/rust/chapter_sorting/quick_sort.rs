@@ -4,26 +4,25 @@
  * Author: xBLACKICEx (xBLACKICE@outlook.com)
  */
 
-
 /* 快速排序 */
 struct QuickSort;
 
 impl QuickSort {
     /* 哨兵划分 */
     fn partition(nums: &mut [i32], left: usize, right: usize) -> usize {
-        // 以 nums[left] 作为基准数
+        // 以 nums[left] 为基准数
         let (mut i, mut j) = (left, right);
         while i < j {
             while i < j && nums[j] >= nums[left] {
-                j -= 1;      // 从右向左找首个小于基准数的元素
+                j -= 1; // 从右向左找首个小于基准数的元素
             }
             while i < j && nums[i] <= nums[left] {
-                i += 1;      // 从左向右找首个大于基准数的元素
+                i += 1; // 从左向右找首个大于基准数的元素
             }
             nums.swap(i, j); // 交换这两个元素
         }
-        nums.swap(i, left);  // 将基准数交换至两子数组的分界线
-        i                    // 返回基准数的索引
+        nums.swap(i, left); // 将基准数交换至两子数组的分界线
+        i // 返回基准数的索引
     }
 
     /* 快速排序 */
@@ -44,15 +43,15 @@ impl QuickSort {
 struct QuickSortMedian;
 
 impl QuickSortMedian {
-    /* 选取三个元素的中位数 */
+    /* 选取三个候选元素的中位数 */
     fn median_three(nums: &mut [i32], left: usize, mid: usize, right: usize) -> usize {
-        // 此处使用异或运算来简化代码
-        // 异或规则为 0 ^ 0 = 1 ^ 1 = 0, 0 ^ 1 = 1 ^ 0 = 1
-        if (nums[left] < nums[mid]) ^ (nums[left] < nums[right]) {
-            return left;
-        } else if (nums[mid] < nums[left]) ^ (nums[mid] < nums[right]) {
-            return mid;
-        } 
+        let (l, m, r) = (nums[left], nums[mid], nums[right]);
+        if (l <= m && m <= r) || (r <= m && m <= l) {
+            return mid; // m 在 l 和 r 之间
+        }
+        if (m <= l && l <= r) || (r <= l && l <= m) {
+            return left; // l 在 m 和 r 之间
+        }
         right
     }
 
@@ -62,19 +61,19 @@ impl QuickSortMedian {
         let med = Self::median_three(nums, left, (left + right) / 2, right);
         // 将中位数交换至数组最左端
         nums.swap(left, med);
-        // 以 nums[left] 作为基准数
+        // 以 nums[left] 为基准数
         let (mut i, mut j) = (left, right);
         while i < j {
             while i < j && nums[j] >= nums[left] {
-                j -= 1;      // 从右向左找首个小于基准数的元素
+                j -= 1; // 从右向左找首个小于基准数的元素
             }
             while i < j && nums[i] <= nums[left] {
-                i += 1;      // 从左向右找首个大于基准数的元素
+                i += 1; // 从左向右找首个大于基准数的元素
             }
             nums.swap(i, j); // 交换这两个元素
         }
-         nums.swap(i, left);  // 将基准数交换至两子数组的分界线
-         i                    // 返回基准数的索引
+        nums.swap(i, left); // 将基准数交换至两子数组的分界线
+        i // 返回基准数的索引
     }
 
     /* 快速排序 */
@@ -97,19 +96,19 @@ struct QuickSortTailCall;
 impl QuickSortTailCall {
     /* 哨兵划分 */
     fn partition(nums: &mut [i32], left: usize, right: usize) -> usize {
-        // 以 nums[left] 作为基准数
+        // 以 nums[left] 为基准数
         let (mut i, mut j) = (left, right);
         while i < j {
             while i < j && nums[j] >= nums[left] {
-                j -= 1;      // 从右向左找首个小于基准数的元素
+                j -= 1; // 从右向左找首个小于基准数的元素
             }
             while i < j && nums[i] <= nums[left] {
-                i += 1;      // 从左向右找首个大于基准数的元素
+                i += 1; // 从左向右找首个大于基准数的元素
             }
             nums.swap(i, j); // 交换这两个元素
         }
-        nums.swap(i, left);  // 将基准数交换至两子数组的分界线
-        i                    // 返回基准数的索引
+        nums.swap(i, left); // 将基准数交换至两子数组的分界线
+        i // 返回基准数的索引
     }
 
     /* 快速排序（尾递归优化） */
@@ -118,10 +117,10 @@ impl QuickSortTailCall {
         while left < right {
             // 哨兵划分操作
             let pivot = Self::partition(nums, left as usize, right as usize) as i32;
-            // 对两个子数组中较短的那个执行快排
-            if  pivot - left < right - pivot {
-                Self::quick_sort(left, pivot - 1, nums);  // 递归排序左子数组
-                left = pivot + 1;  // 剩余未排序区间为 [pivot + 1, right]
+            // 对两个子数组中较短的那个执行快速排序
+            if pivot - left < right - pivot {
+                Self::quick_sort(left, pivot - 1, nums); // 递归排序左子数组
+                left = pivot + 1; // 剩余未排序区间为 [pivot + 1, right]
             } else {
                 Self::quick_sort(pivot + 1, right, nums); // 递归排序右子数组
                 right = pivot - 1; // 剩余未排序区间为 [left, pivot - 1]

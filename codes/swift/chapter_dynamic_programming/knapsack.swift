@@ -6,11 +6,11 @@
 
 /* 0-1 背包：暴力搜索 */
 func knapsackDFS(wgt: [Int], val: [Int], i: Int, c: Int) -> Int {
-    // 若已选完所有物品或背包无容量，则返回价值 0
+    // 若已选完所有物品或背包无剩余容量，则返回价值 0
     if i == 0 || c == 0 {
         return 0
     }
-    // 若超过背包容量，则只能不放入背包
+    // 若超过背包容量，则只能选择不放入背包
     if wgt[i - 1] > c {
         return knapsackDFS(wgt: wgt, val: val, i: i - 1, c: c)
     }
@@ -23,7 +23,7 @@ func knapsackDFS(wgt: [Int], val: [Int], i: Int, c: Int) -> Int {
 
 /* 0-1 背包：记忆化搜索 */
 func knapsackDFSMem(wgt: [Int], val: [Int], mem: inout [[Int]], i: Int, c: Int) -> Int {
-    // 若已选完所有物品或背包无容量，则返回价值 0
+    // 若已选完所有物品或背包无剩余容量，则返回价值 0
     if i == 0 || c == 0 {
         return 0
     }
@@ -31,7 +31,7 @@ func knapsackDFSMem(wgt: [Int], val: [Int], mem: inout [[Int]], i: Int, c: Int) 
     if mem[i][c] != -1 {
         return mem[i][c]
     }
-    // 若超过背包容量，则只能不放入背包
+    // 若超过背包容量，则只能选择不放入背包
     if wgt[i - 1] > c {
         return knapsackDFSMem(wgt: wgt, val: val, mem: &mem, i: i - 1, c: c)
     }
@@ -49,8 +49,8 @@ func knapsackDP(wgt: [Int], val: [Int], cap: Int) -> Int {
     // 初始化 dp 表
     var dp = Array(repeating: Array(repeating: 0, count: cap + 1), count: n + 1)
     // 状态转移
-    for i in stride(from: 1, through: n, by: 1) {
-        for c in stride(from: 1, through: cap, by: 1) {
+    for i in 1 ... n {
+        for c in 1 ... cap {
             if wgt[i - 1] > c {
                 // 若超过背包容量，则不选物品 i
                 dp[i][c] = dp[i - 1][c]
@@ -69,9 +69,9 @@ func knapsackDPComp(wgt: [Int], val: [Int], cap: Int) -> Int {
     // 初始化 dp 表
     var dp = Array(repeating: 0, count: cap + 1)
     // 状态转移
-    for i in stride(from: 1, through: n, by: 1) {
+    for i in 1 ... n {
         // 倒序遍历
-        for c in stride(from: cap, through: 1, by: -1) {
+        for c in (1 ... cap).reversed() {
             if wgt[i - 1] <= c {
                 // 不选和选物品 i 这两种方案的较大值
                 dp[c] = max(dp[c], dp[c - wgt[i - 1]] + val[i - 1])

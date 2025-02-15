@@ -10,9 +10,11 @@ import utils
 class LinkedListQueue {
     private var front: ListNode? // 头节点
     private var rear: ListNode? // 尾节点
-    private var _size = 0
+    private var _size: Int
 
-    init() {}
+    init() {
+        _size = 0
+    }
 
     /* 获取队列的长度 */
     func size() -> Int {
@@ -26,7 +28,7 @@ class LinkedListQueue {
 
     /* 入队 */
     func push(num: Int) {
-        // 尾节点后添加 num
+        // 在尾节点后添加 num
         let node = ListNode(x: num)
         // 如果队列为空，则令头、尾节点都指向该节点
         if front == nil {

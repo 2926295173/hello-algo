@@ -8,11 +8,11 @@ namespace hello_algo.chapter_sorting;
 
 public class insertion_sort {
     /* 插入排序 */
-    static void InsertionSort(int[] nums) {
-        // 外循环：已排序元素数量为 1, 2, ..., n
+    void InsertionSort(int[] nums) {
+        // 外循环：已排序区间为 [0, i-1]
         for (int i = 1; i < nums.Length; i++) {
             int bas = nums[i], j = i - 1;
-            // 内循环：将 base 插入到已排序部分的正确位置
+            // 内循环：将 base 插入到已排序区间 [0, i-1] 中的正确位置
             while (j >= 0 && nums[j] > bas) {
                 nums[j + 1] = nums[j]; // 将 nums[j] 向右移动一位
                 j--;
@@ -23,7 +23,7 @@ public class insertion_sort {
 
     [Test]
     public void Test() {
-        int[] nums = { 4, 1, 3, 1, 5, 2 };
+        int[] nums = [4, 1, 3, 1, 5, 2];
         InsertionSort(nums);
         Console.WriteLine("插入排序完成后 nums = " + string.Join(",", nums));
     }

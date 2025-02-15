@@ -16,7 +16,7 @@ func coinChangeIIDP(coins []int, amt int) int {
 	for i := 0; i <= n; i++ {
 		dp[i][0] = 1
 	}
-	// 状态转移：其余行列
+	// 状态转移：其余行和列
 	for i := 1; i <= n; i++ {
 		for a := 1; a <= amt; a++ {
 			if coins[i-1] > a {
@@ -39,7 +39,7 @@ func coinChangeIIDPComp(coins []int, amt int) int {
 	dp[0] = 1
 	// 状态转移
 	for i := 1; i <= n; i++ {
-		// 倒序遍历
+		// 正序遍历
 		for a := 1; a <= amt; a++ {
 			if coins[i-1] > a {
 				// 若超过目标金额，则不选硬币 i

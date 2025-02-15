@@ -10,10 +10,12 @@ import utils
 class AVLTree {
     fileprivate var root: TreeNode? // 根节点
 
+    init() {}
+
     /* 获取节点高度 */
     func height(node: TreeNode?) -> Int {
         // 空节点高度为 -1 ，叶节点高度为 0
-        node == nil ? -1 : node!.height
+        node?.height ?? -1
     }
 
     /* 更新节点高度 */
@@ -99,7 +101,7 @@ class AVLTree {
         if node == nil {
             return TreeNode(x: val)
         }
-        /* 1. 查找插入位置，并插入节点 */
+        /* 1. 查找插入位置并插入节点 */
         if val < node!.val {
             node?.left = insertHelper(node: node?.left, val: val)
         } else if val > node!.val {
@@ -125,14 +127,14 @@ class AVLTree {
         if node == nil {
             return nil
         }
-        /* 1. 查找节点，并删除之 */
+        /* 1. 查找节点并删除 */
         if val < node!.val {
             node?.left = removeHelper(node: node?.left, val: val)
         } else if val > node!.val {
             node?.right = removeHelper(node: node?.right, val: val)
         } else {
             if node?.left == nil || node?.right == nil {
-                let child = node?.left != nil ? node?.left : node?.right
+                let child = node?.left ?? node?.right
                 // 子节点数量 = 0 ，直接删除 node 并返回
                 if child == nil {
                     return nil

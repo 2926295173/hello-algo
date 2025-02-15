@@ -67,7 +67,7 @@ bool empty(LinkedListDeque *deque) {
 /* 入队 */
 void push(LinkedListDeque *deque, int num, bool isFront) {
     DoublyListNode *node = newDoublyListNode(num);
-    // 若链表为空，则令 front, rear 都指向node
+    // 若链表为空，则令 front 和 rear 都指向node
     if (empty(deque)) {
         deque->front = deque->rear = node;
     }
@@ -122,8 +122,8 @@ int pop(LinkedListDeque *deque, bool isFront) {
         if (fNext) {
             fNext->prev = NULL;
             deque->front->next = NULL;
-            delDoublyListNode(deque->front);
         }
+        delDoublyListNode(deque->front);
         deque->front = fNext; // 更新头节点
     }
     // 队尾出队操作
@@ -133,8 +133,8 @@ int pop(LinkedListDeque *deque, bool isFront) {
         if (rPrev) {
             rPrev->next = NULL;
             deque->rear->prev = NULL;
-            delDoublyListNode(deque->rear);
         }
+        delDoublyListNode(deque->rear);
         deque->rear = rPrev; // 更新尾节点
     }
     deque->queSize--; // 更新队列长度

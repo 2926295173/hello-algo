@@ -8,8 +8,6 @@
 
 /* AVL 树 */
 class AVLTree {
-  public:
-    TreeNode *root; // 根节点
   private:
     /* 更新节点高度 */
     void updateHeight(TreeNode *node) {
@@ -79,7 +77,7 @@ class AVLTree {
     TreeNode *insertHelper(TreeNode *node, int val) {
         if (node == nullptr)
             return new TreeNode(val);
-        /* 1. 查找插入位置，并插入节点 */
+        /* 1. 查找插入位置并插入节点 */
         if (val < node->val)
             node->left = insertHelper(node->left, val);
         else if (val > node->val)
@@ -97,7 +95,7 @@ class AVLTree {
     TreeNode *removeHelper(TreeNode *node, int val) {
         if (node == nullptr)
             return nullptr;
-        /* 1. 查找节点，并删除之 */
+        /* 1. 查找节点并删除 */
         if (val < node->val)
             node->left = removeHelper(node->left, val);
         else if (val > node->val)
@@ -134,6 +132,8 @@ class AVLTree {
     }
 
   public:
+    TreeNode *root; // 根节点
+
     /* 获取节点高度 */
     int height(TreeNode *node) {
         // 空节点高度为 -1 ，叶节点高度为 0

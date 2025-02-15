@@ -7,13 +7,13 @@
 namespace hello_algo.chapter_heap;
 
 public class heap {
-    public void TestPush(PriorityQueue<int, int> heap, int val) {
+    void TestPush(PriorityQueue<int, int> heap, int val) {
         heap.Enqueue(val, val); // 元素入堆
         Console.WriteLine($"\n元素 {val} 入堆后\n");
         PrintUtil.PrintHeap(heap);
     }
 
-    public void TestPop(PriorityQueue<int, int> heap) {
+    void TestPop(PriorityQueue<int, int> heap) {
         int val = heap.Dequeue(); // 堆顶元素出堆
         Console.WriteLine($"\n堆顶元素 {val} 出堆后\n");
         PrintUtil.PrintHeap(heap);
@@ -24,8 +24,8 @@ public class heap {
         /* 初始化堆 */
         // 初始化小顶堆
         PriorityQueue<int, int> minHeap = new();
-        // 初始化大顶堆（使用 lambda 表达式修改 Comparator 即可）
-        PriorityQueue<int, int> maxHeap = new(Comparer<int>.Create((x, y) => y - x));
+        // 初始化大顶堆（使用 lambda 表达式修改 Comparer 即可）
+        PriorityQueue<int, int> maxHeap = new(Comparer<int>.Create((x, y) => y.CompareTo(x)));
         Console.WriteLine("以下测试样例为大顶堆");
 
         /* 元素入堆 */

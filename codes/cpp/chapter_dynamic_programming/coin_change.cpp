@@ -1,7 +1,7 @@
 /**
  * File: coin_change.cpp
  * Created Time: 2023-07-11
- * Author: Krahets (krahets@163.com)
+ * Author: krahets (krahets@163.com)
  */
 
 #include "../utils/common.hpp"
@@ -16,7 +16,7 @@ int coinChangeDP(vector<int> &coins, int amt) {
     for (int a = 1; a <= amt; a++) {
         dp[0][a] = MAX;
     }
-    // 状态转移：其余行列
+    // 状态转移：其余行和列
     for (int i = 1; i <= n; i++) {
         for (int a = 1; a <= amt; a++) {
             if (coins[i - 1] > a) {

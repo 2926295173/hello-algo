@@ -7,7 +7,7 @@
 #include "../utils/common.h"
 
 /* 哈希表默认大小 */
-#define HASHTABLE_CAPACITY 100
+#define MAX_SIZE 100
 
 /* 键值对 int->string */
 typedef struct {
@@ -21,20 +21,23 @@ typedef struct {
     int len;
 } MapSet;
 
-/* 基于数组简易实现的哈希表 */
+/* 基于数组实现的哈希表 */
 typedef struct {
-    Pair *buckets[HASHTABLE_CAPACITY];
+    Pair *buckets[MAX_SIZE];
 } ArrayHashMap;
 
 /* 构造函数 */
 ArrayHashMap *newArrayHashMap() {
     ArrayHashMap *hmap = malloc(sizeof(ArrayHashMap));
+    for (int i=0; i < MAX_SIZE; i++) {
+        hmap->buckets[i] = NULL;
+    }
     return hmap;
 }
 
 /* 析构函数 */
 void delArrayHashMap(ArrayHashMap *hmap) {
-    for (int i = 0; i < HASHTABLE_CAPACITY; i++) {
+    for (int i = 0; i < MAX_SIZE; i++) {
         if (hmap->buckets[i] != NULL) {
             free(hmap->buckets[i]->val);
             free(hmap->buckets[i]);
@@ -45,7 +48,7 @@ void delArrayHashMap(ArrayHashMap *hmap) {
 
 /* 哈希函数 */
 int hashFunc(int key) {
-    int index = key % HASHTABLE_CAPACITY;
+    int index = key % MAX_SIZE;
     return index;
 }
 
@@ -83,16 +86,16 @@ void pairSet(ArrayHashMap *hmap, MapSet *set) {
     int i = 0, index = 0;
     int total = 0;
     /* 统计有效键值对数量 */
-    for (i = 0; i < HASHTABLE_CAPACITY; i++) {
+    for (i = 0; i < MAX_SIZE; i++) {
         if (hmap->buckets[i] != NULL) {
             total++;
         }
     }
     entries = malloc(sizeof(Pair) * total);
-    for (i = 0; i < HASHTABLE_CAPACITY; i++) {
+    for (i = 0; i < MAX_SIZE; i++) {
         if (hmap->buckets[i] != NULL) {
             entries[index].key = hmap->buckets[i]->key;
-            entries[index].val = malloc(strlen(hmap->buckets[i]->val + 1));
+            entries[index].val = malloc(strlen(hmap->buckets[i]->val) + 1);
             strcpy(entries[index].val, hmap->buckets[i]->val);
             index++;
         }
@@ -107,13 +110,13 @@ void keySet(ArrayHashMap *hmap, MapSet *set) {
     int i = 0, index = 0;
     int total = 0;
     /* 统计有效键值对数量 */
-    for (i = 0; i < HASHTABLE_CAPACITY; i++) {
+    for (i = 0; i < MAX_SIZE; i++) {
         if (hmap->buckets[i] != NULL) {
             total++;
         }
     }
     keys = malloc(total * sizeof(int));
-    for (i = 0; i < HASHTABLE_CAPACITY; i++) {
+    for (i = 0; i < MAX_SIZE; i++) {
         if (hmap->buckets[i] != NULL) {
             keys[index] = hmap->buckets[i]->key;
             index++;
@@ -129,13 +132,13 @@ void valueSet(ArrayHashMap *hmap, MapSet *set) {
     int i = 0, index = 0;
     int total = 0;
     /* 统计有效键值对数量 */
-    for (i = 0; i < HASHTABLE_CAPACITY; i++) {
+    for (i = 0; i < MAX_SIZE; i++) {
         if (hmap->buckets[i] != NULL) {
             total++;
         }
     }
     vals = malloc(total * sizeof(char *));
-    for (i = 0; i < HASHTABLE_CAPACITY; i++) {
+    for (i = 0; i < MAX_SIZE; i++) {
         if (hmap->buckets[i] != NULL) {
             vals[index] = hmap->buckets[i]->val;
             index++;
@@ -173,7 +176,7 @@ int main() {
     print(hmap);
 
     /* 查询操作 */
-    // 向哈希表输入键 key ，得到值 value
+    // 向哈希表中输入键 key ，得到值 value
     const char *name = get(hmap, 15937);
     printf("\n输入学号 15937 ，查询到姓名 %s\n", name);
 
